@@ -1,13 +1,13 @@
-#include "morph_hw.h"
+#include "wave_hw.h"
 #include "wheel_driver.h"
 #include <hardware_interface/joint_command_interface.h>
 #include <hardware_interface/joint_state_interface.h>
 #include <hardware_interface/robot_hw.h>
 #include <math.h>
 
-namespace morph {
+namespace wave {
 
-MORPH_HW::MORPH_HW(std::string right_wheel_port, std::string left_wheel_port, double right_wheel_ikv, double left_wheel_ikv, double tacho_pulses_per_revolution, int motor_poles, disp_pos_mode rotor_position_source, ros::NodeHandle nh) :
+WAVE_HW::WAVE_HW(std::string right_wheel_port, std::string left_wheel_port, double right_wheel_ikv, double left_wheel_ikv, double tacho_pulses_per_revolution, int motor_poles, disp_pos_mode rotor_position_source, ros::NodeHandle nh) :
   _right_wheel_driver(right_wheel_port, nh, "right_wheel", rotor_position_source),
   _left_wheel_driver(left_wheel_port, nh, "left_wheel", rotor_position_source)
  {
@@ -46,7 +46,7 @@ MORPH_HW::MORPH_HW(std::string right_wheel_port, std::string left_wheel_port, do
     registerInterface(&_jnt_vel_interface);
     }
 
-  void MORPH_HW::read(const ros::Time& time, const ros::Duration& period)
+  void WAVE_HW::read(const ros::Time& time, const ros::Duration& period)
   {
     ROS_DEBUG("Reading from hardware...");
 
@@ -65,7 +65,7 @@ MORPH_HW::MORPH_HW(std::string right_wheel_port, std::string left_wheel_port, do
     ROS_DEBUG("Effort: %f : %f", _eff[0], _eff[1]);
   }
 
-  void MORPH_HW::write(const ros::Time& time, const ros::Duration& period)
+  void WAVE_HW::write(const ros::Time& time, const ros::Duration& period)
   {
     ROS_DEBUG("Writing to hardware...");
     double left_voltage_in = _left_wheel_driver.getVoltageIn();

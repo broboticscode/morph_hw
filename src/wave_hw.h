@@ -1,18 +1,18 @@
-#ifndef MORPH_HW_H
-#define MORPH_HW_H
-#include "morph_hw.h"
+#ifndef WAVE_HW_H
+#define WAVE_HW_H
+#include "wave_hw.h"
 #include "wheel_driver.h"
 #include <hardware_interface/joint_command_interface.h>
 #include <hardware_interface/joint_state_interface.h>
 #include <hardware_interface/robot_hw.h>
 
-namespace morph
+namespace wave
 {
 
-class MORPH_HW : public hardware_interface::RobotHW
+class WAVE_HW : public hardware_interface::RobotHW
 {
 public:
-  MORPH_HW(std::string right_wheel_port, std::string left_wheel_port, double right_wheel_correction_factor, double left_wheel_correction_factor, double tacho_pulses_per_revolution, int motor_poles, disp_pos_mode rotor_position_source, ros::NodeHandle nh);
+  WAVE_HW(std::string right_wheel_port, std::string left_wheel_port, double right_wheel_correction_factor, double left_wheel_correction_factor, double tacho_pulses_per_revolution, int motor_poles, disp_pos_mode rotor_position_source, ros::NodeHandle nh);
   void read(const ros::Time& time, const ros::Duration& period);
   void write(const ros::Time& time, const ros::Duration& period);
 
@@ -36,4 +36,4 @@ private:
 
 }
 
-#endif // MORPH_HW_H
+#endif // WAVE_HW_H

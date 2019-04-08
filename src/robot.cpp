@@ -1,11 +1,11 @@
-#include "morph_hw.h"
+#include "wave_hw.h"
 #include <iostream>
 #include "controller_manager/controller_manager.h"
 #include <hardware_interface/robot_hw.h>
 
 int main(int argc, char** argv)
 {
-  ros::init(argc, argv, "morph_robot");
+  ros::init(argc, argv, "wave_robot");
   // Allow the action server to recieve and send ros messages
   ros::AsyncSpinner spinner(4);
   spinner.start();
@@ -79,7 +79,7 @@ int main(int argc, char** argv)
     }
   }
 
-  morph::MORPH_HW robot(right_wheel_port, left_wheel_port, right_wheel_ikv, left_wheel_ikv, tacho_pulses_per_revolution, motor_poles, mode, nh);
+  wave::WAVE_HW robot(right_wheel_port, left_wheel_port, right_wheel_ikv, left_wheel_ikv, tacho_pulses_per_revolution, motor_poles, mode, nh);
   controller_manager::ControllerManager cm(&robot);
   ROS_INFO_STREAM_NAMED("hardware_interface","Starting loop");
   while (ros::ok())
