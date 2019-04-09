@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(morph_hw)
+project(wave_hw)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -97,7 +97,7 @@ find_package(catkin REQUIRED COMPONENTS vesc_driver vesc_msgs controller_manager
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES morph_hw
+#  LIBRARIES wave_hw
   CATKIN_DEPENDS vesc_driver vesc_msgs
 #  DEPENDS system_lib
 )
@@ -115,19 +115,19 @@ include_directories(
 )
 
 ## Declare a C++ library
-# add_library(morph_hw
-#   src/${PROJECT_NAME}/morph_hw.cpp
+# add_library(wave_hw
+#   src/${PROJECT_NAME}/wave_hw.cpp
 # )
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
 ## either from message generation or dynamic reconfigure
-# add_dependencies(morph_hw ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+# add_dependencies(wave_hw ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Declare a C++ executable
 add_executable(robot
                         src/robot.cpp
-                        src/morph_hw.cpp
+                        src/wave_hw.cpp
                         src/wheel_driver.cpp
               )
 
@@ -139,10 +139,10 @@ target_link_libraries(robot
 )
 ## Add cmake target dependencies of the executable
 ## same as for the library above
-# add_dependencies(morph_hw_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+# add_dependencies(wave_hw_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(morph_hw_node
+# target_link_libraries(wave_hw_node
 #   ${catkin_LIBRARIES}
 # )
 
@@ -161,7 +161,7 @@ target_link_libraries(robot
 # )
 
 ## Mark executables and/or libraries for installation
-# install(TARGETS morph_hw morph_hw_node
+# install(TARGETS wave_hw wave_hw_node
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
@@ -186,7 +186,7 @@ target_link_libraries(robot
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_morph_hw.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_wave_hw.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
