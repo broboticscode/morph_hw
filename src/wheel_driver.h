@@ -12,6 +12,7 @@
 #include "vesc_driver/vesc_packet.h"
 using namespace vesc_driver;
 
+
 class wheel_driver
 {
 public:
@@ -22,7 +23,9 @@ public:
     double getDisplacement();
     double getEncoderDisplacement();
     void setDutyCycle(double dutyCycle);
+    void setSpeed(double speed); 
     void releaseMotor();
+    
 
 private:
     std::string name_;

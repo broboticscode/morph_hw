@@ -15,10 +15,14 @@ public:
   WAVE_HW(std::string right_wheel_port, std::string left_wheel_port, double right_wheel_correction_factor, double left_wheel_correction_factor, double tacho_pulses_per_revolution, int motor_poles, disp_pos_mode rotor_position_source, ros::NodeHandle nh);
   void read(const ros::Time& time, const ros::Duration& period);
   void write(const ros::Time& time, const ros::Duration& period);
+  void setLeftCallback(std_msgs::Float64 msg);
+  void setRightCallback(std_msgs::Float64 msg);
 
 private:
   wheel_driver _right_wheel_driver;
   wheel_driver _left_wheel_driver;
+  double right_request_dutyCycle = 0;
+  double left_request_dutyCycle = 0;
   double _right_wheel_ikv;
   double _left_wheel_ikv;
   double _tacho_pulses_per_revolution;
@@ -32,6 +36,10 @@ private:
   double _pos[2];
   double _vel[2];
   double _eff[2];
+  ros::Publisher right_speed_pub;
+  ros::Publisher left_speed_pub;
+  ros::Subscriber left_sub;
+  ros::Subscriber right_sub;
 };
 
 }

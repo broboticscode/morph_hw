@@ -5,6 +5,7 @@
 #include <boost/thread.hpp>
 #include <ros/ros.h>
 #include <std_msgs/Float32.h>
+#include <std_msgs/Float64.h> 
 
 wheel_driver::wheel_driver(std::string port, ros::NodeHandle nh, std::string name, disp_pos_mode rotor_position_mode) :
       vesc_(std::string(),
@@ -26,7 +27,7 @@ wheel_driver::wheel_driver(std::string port, ros::NodeHandle nh, std::string nam
 
     // create vesc state (telemetry) publisher
     state_pub_ = nh.advertise<vesc_msgs::VescStateStamped>(name + "/sensors/core", 10);
-
+   
     // create a 50Hz timer, used for state machine & polling VESC telemetry
     timer_ = nh.createTimer(ros::Duration(1.0/50.0), &wheel_driver::timerCallback, this);
 
@@ -47,6 +48,15 @@ void wheel_driver::setDutyCycle(double dutyCycle)
   else {
       ROS_ERROR("Dutycycle out-of-range %s : %f", name_.c_str(), dutyCycle);
   }
+}
+
+void wheel_driver::setSpeed(double speed){
+ if(abs(speed) < 5000) {
+     vesc_.setSpeed(speed); 
+ }
+  else {
+   ROS_ERROR("Speed out-of-range %f", speed);		
+}
 }
 
 void wheel_driver::releaseMotor()
@@ -88,6 +98,11 @@ void wheel_driver::timerCallback(const ros::TimerEvent& event)
     assert(false && "unknown driver mode");
   }
 }
+
+
+
+
+
 
 void wheel_driver::vescPacketCallback(const boost::shared_ptr<VescPacket const>& packet)
 {
@@ -137,9 +152,9 @@ void wheel_driver::vescPacketCallback(const boost::shared_ptr<VescPacket const>&
     if (isnan(encoderDisplacementPreviousValue))
       encoderDisplacementPreviousValue = currentPosition;
 
-    // Only calculate encoderDisplacement when the speed actually changes, because
+    // Only calculate encoderDisplacement when the speed is above 5 ERPM, because
     // stationary value can fluctuate a few degrees and can cause issues at 360 / 0 (2pi / 0 ) point
-    const int MIN_SPEED_ERPM = 1;
+    const int MIN_SPEED_ERPM = 5; // TODO: Parameter for threshold
     if (speed > MIN_SPEED_ERPM)
     {
       // Forward motion delta calculation

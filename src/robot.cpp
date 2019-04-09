@@ -82,6 +82,7 @@ int main(int argc, char** argv)
   wave::WAVE_HW robot(right_wheel_port, left_wheel_port, right_wheel_ikv, left_wheel_ikv, tacho_pulses_per_revolution, motor_poles, mode, nh);
   controller_manager::ControllerManager cm(&robot);
   ROS_INFO_STREAM_NAMED("hardware_interface","Starting loop");
+
   while (ros::ok())
   {
      robot.read(ros::Time::now(),r.cycleTime());
